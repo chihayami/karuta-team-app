@@ -1,6 +1,6 @@
 {
   "name": "Codex Sandbox",
-  "dockerComposeFile": "docker-compose.yml",
+  "dockerComposeFile": "compose.yaml",
   "service": "codex-sandbox",
   "workspaceFolder": "/workspace",
   "postCreateCommand": "npm install",
