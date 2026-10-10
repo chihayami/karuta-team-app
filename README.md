@@ -17,4 +17,6 @@ python3 scripts/check-docs.py
 
 この検査は仕様IDとローカルリンクの整合性を確認する. API契約・業務処理・環境分離の実行テストは本体実装時に追加する.
 
+Markdownの整形にはPrettierを使用する. Node.js 26とnpmを用意し, 初回に `npm install` を実行すると, commit前にステージ済みのMarkdownを自動整形するhookが有効になる. 手動で全Markdownを整形・確認する場合は `npm run format:md` と `npm run check:md` を実行する.
+
 Gitの初期ブランチはmain. 継続開発用のdevelopとVercelのPreview/Production連携は環境仕様に従って設定する. リモート設定とpushは人間が行い, 個人設定・資格情報・ログ・生成物はGit管理から除外する.
