@@ -12,33 +12,33 @@
 
 ## <app>_local.audit_events
 
-| 列名 | 型 | NULL | 既定値 | 入力・制約・意味 |
-| --- | --- | --- | --- | --- |
-| id | uuid | 不可 | サーバー生成 | 主キー. 利用者による指定・変更不可 |
-| actor_id | uuid | 可 | NULL | 認証済み操作者ID. システム処理のみNULL |
-| actor_kind | text | 不可 | なし | ACCOUNT / SYSTEM |
-| action | text | 不可 | なし | 所有Appの許可された操作コード |
-| entity_type | text | 不可 | なし | 所有Appの許可された対象コード |
-| entity_id | uuid | 不可 | なし | 対象ID. ACCOUNT_ROLEでは対象アカウントIDとし, role_codeでロールを特定 |
-| changed_fields | text[] | 不可 | なし | 変更した業務列名. 所有Appのデータ辞書にある列だけ. 重複・NULL要素不可 |
-| changes | jsonb | 不可 | {} | 下表で許可した変更列だけをキーとし, 値はbefore/afterの2キー. 許可列に変更がなければ空オブジェクト |
-| occurred_at | timestamptz | 不可 | サーバー現在時刻 | 操作日時 |
-| practice_session_id | uuid | 可 | NULL | PRACTICE_SESSION・ATTENDANCEは対象練習ID必須. 会場単体・他Appの操作はNULL |
-| purge_on | date | 不可 | サーバー計算 | 保持規則から求める削除日. 任意延長不可 |
+| 列名                | 型          | NULL | 既定値           | 入力・制約・意味                                                                                  |
+| ------------------- | ----------- | ---- | ---------------- | ------------------------------------------------------------------------------------------------- |
+| id                  | uuid        | 不可 | サーバー生成     | 主キー. 利用者による指定・変更不可                                                                |
+| actor_id            | uuid        | 可   | NULL             | 認証済み操作者ID. システム処理のみNULL                                                            |
+| actor_kind          | text        | 不可 | なし             | ACCOUNT / SYSTEM                                                                                  |
+| action              | text        | 不可 | なし             | 所有Appの許可された操作コード                                                                     |
+| entity_type         | text        | 不可 | なし             | 所有Appの許可された対象コード                                                                     |
+| entity_id           | uuid        | 不可 | なし             | 対象ID. ACCOUNT_ROLEでは対象アカウントIDとし, role_codeでロールを特定                             |
+| changed_fields      | text[]      | 不可 | なし             | 変更した業務列名. 所有Appのデータ辞書にある列だけ. 重複・NULL要素不可                             |
+| changes             | jsonb       | 不可 | {}               | 下表で許可した変更列だけをキーとし, 値はbefore/afterの2キー. 許可列に変更がなければ空オブジェクト |
+| occurred_at         | timestamptz | 不可 | サーバー現在時刻 | 操作日時                                                                                          |
+| practice_session_id | uuid        | 可   | NULL             | PRACTICE_SESSION・ATTENDANCEは対象練習ID必須. 会場単体・他Appの操作はNULL                         |
+| purge_on            | date        | 不可 | サーバー計算     | 保持規則から求める削除日. 任意延長不可                                                            |
 
 actor_kind=ACCOUNTならactor_id必須, SYSTEMならNULL. changed_fieldsは作成時には設定した業務列, 更新時には実際に変えた業務列, 削除時には削除した業務列の名前を記録する. 認証秘密値・LINE識別子の列と, version・updated_at等の機械的な管理列は含めない. 業務列の変更がない場合は空配列を許容する.
 changesのキーはchanged_fieldsに含まれ, かつ次の許可列に限る. 変更された許可列はbefore/afterの値を必ず記録し, 元列と同じ型・コード制約を使う. 作成前・削除後の値はNULL. クライアントによる項目追加や未知のキーは拒否する.
 
-| entity_type | 変更前後の値を記録する列 |
-| --- | --- |
-| ACCOUNT | status |
-| ACCOUNT_ROLE | role_code |
-| MEMBER_LINK | relationship_code, revoked_at, reviewed_at |
-| MEMBER | member_type, membership_status, current_grade |
-| GRADE_HISTORY | grade, effective_date |
-| VENUE | is_active |
+| entity_type      | 変更前後の値を記録する列                                                                                                                |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| ACCOUNT          | status                                                                                                                                  |
+| ACCOUNT_ROLE     | role_code                                                                                                                               |
+| MEMBER_LINK      | relationship_code, revoked_at, reviewed_at                                                                                              |
+| MEMBER           | member_type, membership_status, current_grade                                                                                           |
+| GRADE_HISTORY    | grade, effective_date                                                                                                                   |
+| VENUE            | is_active                                                                                                                               |
 | PRACTICE_SESSION | status, practice_date, start_time, end_time, venue_id, target_grades, max_capacity, is_external_allowed, allow_observation, allow_trial |
-| ATTENDANCE | status, arrival_type, arrival_time, arrival_match, departure_type, departure_time, departure_match |
+| ATTENDANCE       | status, arrival_type, arrival_time, arrival_match, departure_type, departure_time, departure_match                                      |
 
 氏名・かな・自由記述・訂正理由の本文・認証情報・リクエスト全体・行全体のコピーは保存しない. 例えば氏名変更ではchanged_fieldsにfamily_nameを記録し, changesには氏名を入れない. 自由記述だけの変更も日時・対象・項目名は確認できるが, 変更前の本文は復元できない.
 changesは許可列の型・長さ・要素集合で制限する. 汎用の巨大な差分JSONや全文スナップショットは作らない. purge_onは[保存期限](data-retention.md)の対象操作ごとの規則から算出し, 複数期限が該当する場合は早い期限を使う.

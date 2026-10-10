@@ -4,41 +4,41 @@
 
 ## globalの保持規則
 
-| ID | 管理App | テーブル | 対象行・列 | 保存期限・起算点 | 期限後の処理・状態 |
-| --- | --- | --- | --- | --- | --- |
-| <a id="ret-aut-01"></a>RET-AUT-01 | 認証 | [global.accounts](data-design.md#tbl-aut-01) | アカウント・初回登録完了状態 | 自動削除期限なし | 利用終了判定・起算日管理・定期削除を行わず, 初回ロックを維持 |
-| <a id="ret-aut-03"></a>RET-AUT-03 | 認証 | [global.account_roles](data-design.md#tbl-aut-02) | 現行ロール行 | 付与中のみ | 剥奪時に行を削除. 操作履歴は[RET-AUT-08](data-retention.md#ret-aut-08). 履歴保持は権限を延長しない |
-| <a id="ret-aut-04"></a>RET-AUT-04 | 認証 | [global.member_links](data-design.md#tbl-aut-03) | 有効な紐付け行 | 有効期間中 | 解除時に無効化し[RET-AUT-05](data-retention.md#ret-aut-05)へ移行. 名簿最終削除時の整理は下記参照 |
-| <a id="ret-aut-05"></a>RET-AUT-05 | 認証 | [global.member_links](data-design.md#tbl-aut-03) | 解除済み行・申告確認情報 | 解除から1年経過後の月初処理 | 行・確認者情報を削除. 月初境界は[DEC-OPS-02](open-questions.md#dec-ops-02)で確定 |
-| <a id="ret-rst-01"></a>RET-RST-01 | 名簿 | [global.members](data-design.md#tbl-rst-01) | 会員行・個人情報 | 在籍・休会中は保持. 退会者は退会日から3年経過後の月初処理 | 対象の個人情報を削除. 退会者名簿は同じテーブルの表示区分. 月初境界は[DEC-OPS-02](open-questions.md#dec-ops-02)で確定 |
+| ID                                | 管理App | テーブル                                          | 対象行・列                   | 保存期限・起算点                                          | 期限後の処理・状態                                                                                                   |
+| --------------------------------- | ------- | ------------------------------------------------- | ---------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| <a id="ret-aut-01"></a>RET-AUT-01 | 認証    | [global.accounts](data-design.md#tbl-aut-01)      | アカウント・初回登録完了状態 | 自動削除期限なし                                          | 利用終了判定・起算日管理・定期削除を行わず, 初回ロックを維持                                                         |
+| <a id="ret-aut-03"></a>RET-AUT-03 | 認証    | [global.account_roles](data-design.md#tbl-aut-02) | 現行ロール行                 | 付与中のみ                                                | 剥奪時に行を削除. 操作履歴は[RET-AUT-08](data-retention.md#ret-aut-08). 履歴保持は権限を延長しない                   |
+| <a id="ret-aut-04"></a>RET-AUT-04 | 認証    | [global.member_links](data-design.md#tbl-aut-03)  | 有効な紐付け行               | 有効期間中                                                | 解除時に無効化し[RET-AUT-05](data-retention.md#ret-aut-05)へ移行. 名簿最終削除時の整理は下記参照                     |
+| <a id="ret-aut-05"></a>RET-AUT-05 | 認証    | [global.member_links](data-design.md#tbl-aut-03)  | 解除済み行・申告確認情報     | 解除から1年経過後の月初処理                               | 行・確認者情報を削除. 月初境界は[DEC-OPS-02](open-questions.md#dec-ops-02)で確定                                     |
+| <a id="ret-rst-01"></a>RET-RST-01 | 名簿    | [global.members](data-design.md#tbl-rst-01)       | 会員行・個人情報             | 在籍・休会中は保持. 退会者は退会日から3年経過後の月初処理 | 対象の個人情報を削除. 退会者名簿は同じテーブルの表示区分. 月初境界は[DEC-OPS-02](open-questions.md#dec-ops-02)で確定 |
 
 ## localの保持規則
 
-| ID | 管理App | テーブル | 対象行・列 | 保存期限・起算点 | 期限後の処理・状態 |
-| --- | --- | --- | --- | --- | --- |
-| <a id="ret-aut-02"></a>RET-AUT-02 | 認証 | [auth_local.account_identities](data-design.md#tbl-aut-04) | LINE識別情報 | 自動削除期限なし | [RET-AUT-01](data-retention.md#ret-aut-01)とともに保持. LINE IDの削除・ハッシュ化だけで個人との対応がなくなるとは扱わない |
-| <a id="ret-aut-06"></a>RET-AUT-06 | 認証 | [auth_local.auth_sessions](data-design.md#tbl-aut-05) | セッション行 | 有効期間中 | 失効・期限切れ時に削除. 復元後も再有効化しない |
-| <a id="ret-aut-07"></a>RET-AUT-07 | 認証 | [auth_local.development_testers](data-design.md#tbl-aut-06) | 開発版検証者の許可行 | 許可中のみ | 許可解除時に削除. アカウント本体の保持とは分離 |
-| <a id="ret-aut-08"></a>RET-AUT-08 | 認証 | [auth_local.audit_events](data-design.md#tbl-aut-07) | 紐付け・権限変更の監査行 | 操作から1年経過後の月初処理 | 行を削除. 個人別出欠の混入分には[RET-PRC-05](data-retention.md#ret-prc-05)を優先 |
-| <a id="ret-aut-09"></a>RET-AUT-09 | 認証 | [auth_local.audit_events](data-design.md#tbl-aut-07) | アカウント作成・状態変更等, [RET-AUT-08](data-retention.md#ret-aut-08)以外の監査行 | 操作から1年経過後の月初処理 | 行を削除. 個人別練習情報が該当する場合は[RET-PRC-05](data-retention.md#ret-prc-05)を優先. 月初境界は[DEC-OPS-02](open-questions.md#dec-ops-02)に従う |
-| <a id="ret-rst-02"></a>RET-RST-02 | 名簿 | [roster_local.grade_history](data-design.md#tbl-rst-02) | 個人別級履歴 | [RET-RST-01](data-retention.md#ret-rst-01)の名簿最終削除まで | 名簿と同時削除. 確定済み練習集計は維持 |
-| <a id="ret-rst-03"></a>RET-RST-03 | 名簿 | [roster_local.audit_events](data-design.md#tbl-rst-03) | 名簿・昇級変更の監査行 | 操作から1年経過後の月初処理 | 行を削除. 級判定用の履歴は[RET-RST-02](data-retention.md#ret-rst-02). 名簿最終削除時に個人情報を延長保持しない |
-| <a id="ret-prc-01"></a>RET-PRC-01 | 練習 | [practice_local.venues](data-design.md#tbl-prc-01) | 会場行 | 利用中または練習から参照中 | 利用終了で無効化し, 参照がなければ削除可能 |
-| <a id="ret-prc-02"></a>RET-PRC-02 | 練習 | [practice_local.practice_sessions](data-design.md#tbl-prc-02) | title・notes | 開催月N+2月1日 | NULLへ更新し, 集計・操作履歴へ原文を残さない |
-| <a id="ret-prc-03"></a>RET-PRC-03 | 練習 | [practice_local.practice_sessions](data-design.md#tbl-prc-02) | 基本属性・確定集計. 列の内訳は練習Appのデータ辞書 | 期限なし | 個人との対応を残さず同じ行に保持. 自由文は含めない |
-| <a id="ret-prc-04"></a>RET-PRC-04 | 練習 | [practice_local.attendances](data-design.md#tbl-prc-03) | 個人別出欠・遅刻早退・備考・操作者を含む全行 | 開催月N+2月1日 | 集計確定後に取消行も含め削除 |
-| <a id="ret-prc-05"></a>RET-PRC-05 | 練習 | [practice_local.audit_events](data-design.md#tbl-prc-04) | 練習・出欠操作の履歴行・操作者・対象参照・許可された変更値 | 開催月N+2月1日 | 行を削除. 練習のtitle・notes等の削除対象も履歴に残さない |
-| <a id="ret-prc-06"></a>RET-PRC-06 | 練習 | [practice_local.audit_events](data-design.md#tbl-prc-04) | 会場操作等, [RET-PRC-05](data-retention.md#ret-prc-05)以外の監査行 | 操作から1年経過後の月初処理 | 行を削除. 個人別練習情報が該当する場合は[RET-PRC-05](data-retention.md#ret-prc-05)を優先. 月初境界は[DEC-OPS-02](open-questions.md#dec-ops-02)に従う |
-| <a id="ret-ops-01"></a>RET-OPS-01 | 各所有App | [auth_local.operation_runs](data-design.md#tbl-aut-08), [roster_local.operation_runs](data-design.md#tbl-rst-04), [practice_local.operation_runs](data-design.md#tbl-prc-05) | 各Appの実行記録行 | 実行開始から90日 | 各所有Appが行を削除. テーブル・アクセス権を共有しない |
+| ID                                | 管理App   | テーブル                                                                                                                                                                     | 対象行・列                                                                         | 保存期限・起算点                                             | 期限後の処理・状態                                                                                                                                   |
+| --------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <a id="ret-aut-02"></a>RET-AUT-02 | 認証      | [auth_local.account_identities](data-design.md#tbl-aut-04)                                                                                                                   | LINE識別情報                                                                       | 自動削除期限なし                                             | [RET-AUT-01](data-retention.md#ret-aut-01)とともに保持. LINE IDの削除・ハッシュ化だけで個人との対応がなくなるとは扱わない                            |
+| <a id="ret-aut-06"></a>RET-AUT-06 | 認証      | [auth_local.auth_sessions](data-design.md#tbl-aut-05)                                                                                                                        | セッション行                                                                       | 有効期間中                                                   | 失効・期限切れ時に削除. 復元後も再有効化しない                                                                                                       |
+| <a id="ret-aut-07"></a>RET-AUT-07 | 認証      | [auth_local.development_testers](data-design.md#tbl-aut-06)                                                                                                                  | 開発版検証者の許可行                                                               | 許可中のみ                                                   | 許可解除時に削除. アカウント本体の保持とは分離                                                                                                       |
+| <a id="ret-aut-08"></a>RET-AUT-08 | 認証      | [auth_local.audit_events](data-design.md#tbl-aut-07)                                                                                                                         | 紐付け・権限変更の監査行                                                           | 操作から1年経過後の月初処理                                  | 行を削除. 個人別出欠の混入分には[RET-PRC-05](data-retention.md#ret-prc-05)を優先                                                                     |
+| <a id="ret-aut-09"></a>RET-AUT-09 | 認証      | [auth_local.audit_events](data-design.md#tbl-aut-07)                                                                                                                         | アカウント作成・状態変更等, [RET-AUT-08](data-retention.md#ret-aut-08)以外の監査行 | 操作から1年経過後の月初処理                                  | 行を削除. 個人別練習情報が該当する場合は[RET-PRC-05](data-retention.md#ret-prc-05)を優先. 月初境界は[DEC-OPS-02](open-questions.md#dec-ops-02)に従う |
+| <a id="ret-rst-02"></a>RET-RST-02 | 名簿      | [roster_local.grade_history](data-design.md#tbl-rst-02)                                                                                                                      | 個人別級履歴                                                                       | [RET-RST-01](data-retention.md#ret-rst-01)の名簿最終削除まで | 名簿と同時削除. 確定済み練習集計は維持                                                                                                               |
+| <a id="ret-rst-03"></a>RET-RST-03 | 名簿      | [roster_local.audit_events](data-design.md#tbl-rst-03)                                                                                                                       | 名簿・昇級変更の監査行                                                             | 操作から1年経過後の月初処理                                  | 行を削除. 級判定用の履歴は[RET-RST-02](data-retention.md#ret-rst-02). 名簿最終削除時に個人情報を延長保持しない                                       |
+| <a id="ret-prc-01"></a>RET-PRC-01 | 練習      | [practice_local.venues](data-design.md#tbl-prc-01)                                                                                                                           | 会場行                                                                             | 利用中または練習から参照中                                   | 利用終了で無効化し, 参照がなければ削除可能                                                                                                           |
+| <a id="ret-prc-02"></a>RET-PRC-02 | 練習      | [practice_local.practice_sessions](data-design.md#tbl-prc-02)                                                                                                                | title・notes                                                                       | 開催月N+2月1日                                               | NULLへ更新し, 集計・操作履歴へ原文を残さない                                                                                                         |
+| <a id="ret-prc-03"></a>RET-PRC-03 | 練習      | [practice_local.practice_sessions](data-design.md#tbl-prc-02)                                                                                                                | 基本属性・確定集計. 列の内訳は練習Appのデータ辞書                                  | 期限なし                                                     | 個人との対応を残さず同じ行に保持. 自由文は含めない                                                                                                   |
+| <a id="ret-prc-04"></a>RET-PRC-04 | 練習      | [practice_local.attendances](data-design.md#tbl-prc-03)                                                                                                                      | 個人別出欠・遅刻早退・備考・操作者を含む全行                                       | 開催月N+2月1日                                               | 集計確定後に取消行も含め削除                                                                                                                         |
+| <a id="ret-prc-05"></a>RET-PRC-05 | 練習      | [practice_local.audit_events](data-design.md#tbl-prc-04)                                                                                                                     | 練習・出欠操作の履歴行・操作者・対象参照・許可された変更値                         | 開催月N+2月1日                                               | 行を削除. 練習のtitle・notes等の削除対象も履歴に残さない                                                                                             |
+| <a id="ret-prc-06"></a>RET-PRC-06 | 練習      | [practice_local.audit_events](data-design.md#tbl-prc-04)                                                                                                                     | 会場操作等, [RET-PRC-05](data-retention.md#ret-prc-05)以外の監査行                 | 操作から1年経過後の月初処理                                  | 行を削除. 個人別練習情報が該当する場合は[RET-PRC-05](data-retention.md#ret-prc-05)を優先. 月初境界は[DEC-OPS-02](open-questions.md#dec-ops-02)に従う |
+| <a id="ret-ops-01"></a>RET-OPS-01 | 各所有App | [auth_local.operation_runs](data-design.md#tbl-aut-08), [roster_local.operation_runs](data-design.md#tbl-rst-04), [practice_local.operation_runs](data-design.md#tbl-prc-05) | 各Appの実行記録行                                                                  | 実行開始から90日                                             | 各所有Appが行を削除. テーブル・アクセス権を共有しない                                                                                                |
 
 ポータルは初回の業務・監査・ジョブ実行テーブルを持たない. 大会参加希望・大会班のlocalデータはテーブル名と保持期限が未決であり, 初回テーブルの規則を自動適用しない. この未定義は初回リリースの条件に含めない. [後続データの設計状況](data-design.md#後続データとテーブルを持たないapp)と[DEC-SYS-02](open-questions.md#dec-sys-02)を参照する.
 
 ## テーブル以外の保持規則
 
-| ID | 対象 | 保存期限・起算点 | 期限後の処理・状態 |
-| --- | --- | --- | --- |
-| <a id="ret-ops-02"></a>RET-OPS-02 | 取込CSV・出力の一時ファイル | 処理完了まで | 即時削除. 利用者が持ち出したファイルの管理手順は別途 |
-| <a id="ret-ops-03"></a>RET-OPS-03 | アプリログ | 記録から15日 | 期限に従い削除. トークン・氏名・自由記述は原則出力しない |
+| ID                                | 対象                        | 保存期限・起算点 | 期限後の処理・状態                                       |
+| --------------------------------- | --------------------------- | ---------------- | -------------------------------------------------------- |
+| <a id="ret-ops-02"></a>RET-OPS-02 | 取込CSV・出力の一時ファイル | 処理完了まで     | 即時削除. 利用者が持ち出したファイルの管理手順は別途     |
+| <a id="ret-ops-03"></a>RET-OPS-03 | アプリログ                  | 記録から15日     | 期限に従い削除. トークン・氏名・自由記述は原則出力しない |
 
 バックアップ・作業コピー・復元DBは下記の規則に従う. 作成しないinvitationsやpractice_summariesは保存対象に含めず, [DB設計](data-design.md)に不採用として記録する.
 
@@ -71,14 +71,14 @@
 元データの期限が先に到来した場合はバックアップにもその期限を適用し, 15日保持を理由に個人別記録を延命しない.
 例: 1月の練習を2月28日にバックアップしても, 個人別出欠は3月1日に削除対象となる.
 
-| ID | 対象 | 保存・復元の方針 | 状態 |
-| --- | --- | --- | --- |
-| <a id="ret-ops-04"></a>RET-OPS-04 | スプレッドシートのバックアップ | 上記の周期・期間と元データ期限を適用 | 周期・日数・担当者は確定 |
-| <a id="ret-ops-05"></a>RET-OPS-05 | 失敗したバックアップ・作業コピー | 処理失敗後に削除 | 設計案 |
-| <a id="ret-ops-06"></a>RET-OPS-06 | スプレッドシートの版履歴・複製 | 元データの削除期限を満たせる方式を選ぶ | 技術検証待ち |
-| <a id="ret-ops-07"></a>RET-OPS-07 | DBサービス管理のバックアップ | 期限の制御可能範囲を確認 | 技術検証待ち |
-| <a id="ret-ops-08"></a>RET-OPS-08 | DDL・RLS・関数 | 個人データを含めずプロジェクト存続中保持 | 設計案 |
-| <a id="ret-ops-09"></a>RET-OPS-09 | 復元DB | 公開前に保存期限を再適用. セッション・剥奪済み権限を再有効化しない | 設計案 |
+| ID                                | 対象                             | 保存・復元の方針                                                   | 状態                     |
+| --------------------------------- | -------------------------------- | ------------------------------------------------------------------ | ------------------------ |
+| <a id="ret-ops-04"></a>RET-OPS-04 | スプレッドシートのバックアップ   | 上記の周期・期間と元データ期限を適用                               | 周期・日数・担当者は確定 |
+| <a id="ret-ops-05"></a>RET-OPS-05 | 失敗したバックアップ・作業コピー | 処理失敗後に削除                                                   | 設計案                   |
+| <a id="ret-ops-06"></a>RET-OPS-06 | スプレッドシートの版履歴・複製   | 元データの削除期限を満たせる方式を選ぶ                             | 技術検証待ち             |
+| <a id="ret-ops-07"></a>RET-OPS-07 | DBサービス管理のバックアップ     | 期限の制御可能範囲を確認                                           | 技術検証待ち             |
+| <a id="ret-ops-08"></a>RET-OPS-08 | DDL・RLS・関数                   | 個人データを含めずプロジェクト存続中保持                           | 設計案                   |
+| <a id="ret-ops-09"></a>RET-OPS-09 | 復元DB                           | 公開前に保存期限を再適用. セッション・剥奪済み権限を再有効化しない | 設計案                   |
 
 提案する保存・復元要件:
 
