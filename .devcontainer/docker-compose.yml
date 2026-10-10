@@ -1,0 +1,13 @@
+services:
+  codex-sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /workspace
+    user: node
+    environment:
+      HOME: /home/node
+      GH_TOKEN: ${GH_TOKEN:-}
+    volumes:
+      - ..:/workspace
+    command: sleep infinity

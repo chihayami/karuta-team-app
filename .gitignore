@@ -15,8 +15,12 @@ id_ecdsa
 .netrc
 secrets.yml
 secrets.yaml
-# Workspace-specific container settings and local caches
-/.devcontainer/
+# Shared Dev Container configuration only
+/.devcontainer/*
+!/.devcontainer/.dockerignore
+!/.devcontainer/Dockerfile
+!/.devcontainer/docker-compose.yml
+!/.devcontainer/devcontainer.json
 .vercel/
 .clasp.json
 .clasprc.json
