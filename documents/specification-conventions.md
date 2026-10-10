@@ -4,51 +4,55 @@
 
 同じ規則の独立した再定義を避け, 他文書からはIDまたは節へのリンクで参照する. 索引の名称・所有者, 実装で必要な列制約, 検証のための期待値は参照先との対応が分かる形で記載できる.
 
-| 内容 | 正本 | 他文書の役割 |
-| --- | --- | --- |
-| App境界・依存・横断認可と整合性 | [全体設計](architecture.md) | App仕様は自Appの具体処理を定義 |
-| global/local分類・正式テーブル名・所有者 | [DB設計](data-design.md) | 保存期限表は同じ分類・正式名を参照 |
-| テーブルの列・型・制約 | 各Appのデータ辞書. 共通の運用列は[運用データ](operational-data.md) | 全体DB設計は辞書への索引 |
-| 保持期限・削除条件・バックアップ・月次処理順 | [保存期限](data-retention.md) | App仕様は処理・表示, テストは検証例を記載 |
-| 共通ロールと操作権限 | [権限表](access-control.md) | App仕様は認証方式・資格判定等の詳細を記載 |
-| 画面の表示・操作・利用者 | 所有Appの画面仕様. 横断運用画面のみ[全体画面仕様](screens-and-flows.md) | 全体画面一覧は索引 |
-| 設計判断・確定状況 | [設計判断](open-questions.md) | 詳細案は該当仕様に記載し, 確定済みとは扱わない |
-| 公開API・DTO・エラー・連携手順 | [公開契約](../contracts/README.md)とApp別契約 | App仕様は内部処理を定義 |
-| 環境別の版管理・デプロイ | [環境仕様](development-environment.md) | 実装計画とテストは受入条件を参照 |
-| テストケース・期待結果 | 各Appおよびtests配下のテスト仕様 | 実装計画・受入条件は範囲と完了基準を記載 |
+| 内容                                         | 正本                                                                    | 他文書の役割                                            |
+| -------------------------------------------- | ----------------------------------------------------------------------- | ------------------------------------------------------- |
+| App境界・依存・横断認可と整合性              | [全体設計](architecture.md)                                             | App仕様は自Appの具体処理を定義                          |
+| global/local分類・正式テーブル名・所有者     | [DB設計](data-design.md)                                                | 保存期限表は同じ分類・正式名を参照                      |
+| テーブルの列・型・制約                       | 各Appのデータ辞書. 共通の運用列は[運用データ](operational-data.md)      | 全体DB設計は辞書への索引                                |
+| 保持期限・削除条件・バックアップ・月次処理順 | [保存期限](data-retention.md)                                           | App仕様は処理・表示, テストは検証例を記載               |
+| 共通ロールと操作権限                         | [権限表](access-control.md)                                             | App仕様は認証方式・資格判定等の詳細を記載               |
+| 画面の表示・操作・利用者                     | 所有Appの画面仕様. 横断運用画面のみ[全体画面仕様](screens-and-flows.md) | 全体画面一覧は索引                                      |
+| 設計判断・確定状況                           | [設計判断](open-questions.md)                                           | 詳細案は該当仕様に記載し, 確定済みとは扱わない          |
+| 公開API・DTO・エラー・連携手順               | [公開契約](../contracts/README.md)とApp別契約                           | App仕様は内部処理を定義                                 |
+| 環境別の版管理・デプロイ                     | [環境仕様](development-environment.md)                                  | 実装計画とテストは受入条件を参照                        |
+| 開発手順・完了条件                           | [開発規約](development-conventions.md)                                  | AIの基本動作と操作制限は[AGENTS.md](../AGENTS.md)を参照 |
+| ブランチ・PR・Git操作の担当                  | [Git運用規約](git-workflow.md)                                          | 環境との対応は環境仕様を参照                            |
+| 実装・テストコードの記述規則                 | [コーディング規約](coding-conventions.md)                               | 業務上の期待結果は仕様・テスト仕様を参照                |
+| セキュリティ検査・AI拡張の導入               | [セキュリティ開発規約](security-development.md)                         | 業務上の権限・認証・保持期限は各正本を参照              |
+| テストケース・期待結果                       | 各Appおよびtests配下のテスト仕様                                        | 実装計画・受入条件は範囲と完了基準を記載                |
 
 ## IDの形式
 
 形式は`XXX-YYY-00`. XXXは項目種別, YYYは対象領域を表す英大文字3字, 末尾2桁はその種別・領域内の連番である. 例: `SCR-PRC-01`は練習領域の画面01, `RET-PRC-01`は練習領域の保持規則01. 画面と保持規則に同じ連番があっても対応関係は意味しない.
 
-| 種別 | 意味 | 定義先 |
-| --- | --- | --- |
-| TBL | Table: テーブル | DB設計 |
-| RET | Retention: 保持規則 | 保存期限 |
-| SCR | Screen: 画面 | 所有Appの画面仕様, 横断運用画面は全体画面仕様 |
-| DEC | Decision: 設計判断. 確定後もIDを維持 | 設計判断 |
-| POC | Proof of Concept: 技術実証 | 実装着手と受入の条件 |
-| TST | Test: App固有・結合テスト | 各Appのtests, tests/integration/specification.md |
-| ETE | End to End: 利用シナリオの通しテスト | tests/e2e/specification.md |
-| NAV | Navigation: App間画面遷移テスト | tests/e2e/specification.md |
-| VAL | Validation: データ辞書の検証 | tests/integration/data-validation.md |
-| BND | Boundary: App境界・契約テスト | tests/integration/miniapp-contracts.md |
-| MIL | Milestone: 到達段階 | スコープと工程 |
-| IMP | Implementation: 実装工程 | 実装・検証計画 |
-| API | Application Programming Interface: 公開操作 | contracts配下のApp別契約 |
+| 種別 | 意味                                        | 定義先                                           |
+| ---- | ------------------------------------------- | ------------------------------------------------ |
+| TBL  | Table: テーブル                             | DB設計                                           |
+| RET  | Retention: 保持規則                         | 保存期限                                         |
+| SCR  | Screen: 画面                                | 所有Appの画面仕様, 横断運用画面は全体画面仕様    |
+| DEC  | Decision: 設計判断. 確定後もIDを維持        | 設計判断                                         |
+| POC  | Proof of Concept: 技術実証                  | 実装着手と受入の条件                             |
+| TST  | Test: App固有・結合テスト                   | 各Appのtests, tests/integration/specification.md |
+| ETE  | End to End: 利用シナリオの通しテスト        | tests/e2e/specification.md                       |
+| NAV  | Navigation: App間画面遷移テスト             | tests/e2e/specification.md                       |
+| VAL  | Validation: データ辞書の検証                | tests/integration/data-validation.md             |
+| BND  | Boundary: App境界・契約テスト               | tests/integration/miniapp-contracts.md           |
+| MIL  | Milestone: 到達段階                         | スコープと工程                                   |
+| IMP  | Implementation: 実装工程                    | 実装・検証計画                                   |
+| API  | Application Programming Interface: 公開操作 | contracts配下のApp別契約                         |
 
-| 領域 | 対象 |
-| --- | --- |
-| SYS | 全体・App横断 |
-| AUT | 認証・アクセス管理 |
-| PTL | ポータル |
-| RST | 名簿 |
-| PRC | 練習 |
-| TEN | 大会参加希望 |
-| TOP | 大会班 |
-| ACC | 会計. 後続用に予約 |
-| ENV | 開発・本番環境 |
-| OPS | 共通運用・保存・復元 |
+| 領域 | 対象                 |
+| ---- | -------------------- |
+| SYS  | 全体・App横断        |
+| AUT  | 認証・アクセス管理   |
+| PTL  | ポータル             |
+| RST  | 名簿                 |
+| PRC  | 練習                 |
+| TEN  | 大会参加希望         |
+| TOP  | 大会班               |
+| ACC  | 会計. 後続用に予約   |
+| ENV  | 開発・本番環境       |
+| OPS  | 共通運用・保存・復元 |
 
 ## 採番・参照のルール
 
