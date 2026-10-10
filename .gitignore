@@ -19,7 +19,7 @@ secrets.yaml
 /.devcontainer/*
 !/.devcontainer/.dockerignore
 !/.devcontainer/Dockerfile
-!/.devcontainer/docker-compose.yml
+!/.devcontainer/compose.yaml
 !/.devcontainer/devcontainer.json
 .vercel/
 .clasp.json
