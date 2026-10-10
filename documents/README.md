@@ -6,21 +6,30 @@ IDと文書の正本は[仕様書の管理規則](specification-conventions.md),
 
 ## 全体仕様
 
-| 文書 | 内容 |
-| --- | --- |
-| [全体設計](architecture.md) | App境界, DB管理, 依存, 画面遷移 |
-| [スコープと工程](scope-and-milestones.md) | 対象範囲とマイルストーン |
-| [初回リリース](initial-release.md) | 要件と受入条件 |
-| [環境仕様](development-environment.md) | 開発版・本番版の分離, GitとVercelの版管理・更新・切戻し |
-| [画面一覧](screens-and-flows.md) | 画面と所有App |
-| [権限](access-control.md) | 共通の権限と利用範囲 |
-| [DB設計](data-design.md) | global/local分類, 管理者, データ辞書 |
-| [保存期限](data-retention.md) | データ保持, バックアップ, 復元 |
-| [公開契約](../contracts/README.md) | 各Appの公開API・DTO・認可・連携手順 |
-| [実装・検証計画](implementation-plan.md) | 工程, 検証, 移行 |
-| [文書整合性レビュー](documentation-review.md) | 重複の整理結果と未定義事項 |
-| [設計判断](open-questions.md) | 実装前に確定する業務条件 |
-| [実装着手条件](specification-review.md) | 技術実証と受入判定 |
+| 文書                                          | 内容                                                    |
+| --------------------------------------------- | ------------------------------------------------------- |
+| [全体設計](architecture.md)                   | App境界, DB管理, 依存, 画面遷移                         |
+| [スコープと工程](scope-and-milestones.md)     | 対象範囲とマイルストーン                                |
+| [初回リリース](initial-release.md)            | 要件と受入条件                                          |
+| [環境仕様](development-environment.md)        | 開発版・本番版の分離, GitとVercelの版管理・更新・切戻し |
+| [画面一覧](screens-and-flows.md)              | 画面と所有App                                           |
+| [権限](access-control.md)                     | 共通の権限と利用範囲                                    |
+| [DB設計](data-design.md)                      | global/local分類, 管理者, データ辞書                    |
+| [保存期限](data-retention.md)                 | データ保持, バックアップ, 復元                          |
+| [公開契約](../contracts/README.md)            | 各Appの公開API・DTO・認可・連携手順                     |
+| [実装・検証計画](implementation-plan.md)      | 工程, 検証, 移行                                        |
+| [文書整合性レビュー](documentation-review.md) | 重複の整理結果と未定義事項                              |
+| [設計判断](open-questions.md)                 | 実装前に確定する業務条件                                |
+| [実装着手条件](specification-review.md)       | 技術実証と受入判定                                      |
+
+## 開発規約
+
+| 文書                                            | 内容                                                      |
+| ----------------------------------------------- | --------------------------------------------------------- |
+| [開発規約](development-conventions.md)          | 計画レビュー, 実装, 検証, 完了条件                        |
+| [Git運用規約](git-workflow.md)                  | ブランチ, PR, 緊急修正, 人間とAIの操作範囲                |
+| [コーディング規約](coding-conventions.md)       | 命名, 構造, 型・入力, エラー, テスト, 整形                |
+| [セキュリティ開発規約](security-development.md) | セキュリティレビュー, 自動検査, skill・拡張機能の導入方針 |
 
 ## App別仕様
 
