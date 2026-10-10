@@ -1,0 +1,10 @@
+services:
+  codex-sandbox:
+    environment:
+      SSH_AUTH_SOCK: /run/host-ssh-agent.sock
+    volumes:
+      - type: bind
+        source: ${WSL_SSH_AUTH_SOCK:?Set WSL_SSH_AUTH_SOCK in .devcontainer/.env}
+        target: /run/host-ssh-agent.sock
+        bind:
+          create_host_path: false
