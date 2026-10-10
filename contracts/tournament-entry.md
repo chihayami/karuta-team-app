@@ -1,0 +1,11 @@
+# 大会参加希望の公開API
+
+契約案. 共通の文脈・DTO・エラーは[公開契約](README.md)に従う. 実際のHTTPパスと実装は未確定.
+
+| ID | 操作 | 入力 | 出力 | 利用元・認可 |
+| --- | --- | --- | --- | --- |
+| <a id="api-ten-01"></a>API-TEN-01 | `listParticipationRequests` | tournamentId, 任意の変更カーソル, ページ条件 | requestId, memberId, tournamentId, 希望内容, 変更・取消状態, revision, conditionsRevisionの一覧 | 大会班の担当権限を持つ主体, またはその用途専用の運用主体. 大会ごとに認可 |
+
+後続リリースの案. 希望内容・入力単位・取消可能期間・保持期限は後続設計で確定する. 変更カーソルだけでは取りこぼしがないと判断せず, 大会班の受領版と保存済み希望を照合する. 取消・削除の伝播方式も保持期限の確定時に定義する.
+
+参加希望Appは認証・名簿APIで操作主体と会員資格を確認し, 大会班の[募集情報](tournament-operations.md#api-top-01)を取得して自App内に保存する. 大会班は本APIで得た希望と版を[受領処理](tournament-operations.md#api-top-02)へ渡す. 一般会員は受領操作を直接実行できない. 会員への処理結果は[開示結果API](tournament-operations.md#api-top-03)で取得し, 保存済み・受領済み・参加確定を区別する. 同期・非同期の選択や締切時の照合は[大会契約](tournaments.md)で確定する.

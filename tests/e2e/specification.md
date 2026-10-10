@@ -1,0 +1,26 @@
+# テスト仕様案
+
+App横断の依存は公開APIで検証する.
+
+| ID | 種類 | ケース | 期待結果 |
+| --- | --- | --- | --- |
+| <a id="ete-sys-01"></a>ETE-SYS-01 | E2E        | LINEログイン→自己申告→対象選択→登録→変更→取消 | 正しい対象会員を一貫表示して完了                                    |
+| <a id="ete-sys-02"></a>ETE-SYS-02 | E2E        | 名簿取込→昇級→練習管理→出欠訂正               | 役割に応じた操作で完了                                              |
+| <a id="ete-sys-03"></a>ETE-SYS-03 | E2E | 備考入力と募集中一覧 | 入力時に公開範囲の注記, 利用資格のあるログイン済み利用者に備考表示 |
+| <a id="ete-sys-04"></a>ETE-SYS-04 | E2E・実機  | 指定検証者の開発版LINEログイン           | 開発版表示とポータルを利用可能. 未指定者は業務情報へアクセス不可       |
+| <a id="ete-sys-05"></a>ETE-SYS-05 | E2E        | [MIL-SYS-03](../../documents/scope-and-milestones.md#mil-sys-03)→[MIL-SYS-04](../../documents/scope-and-milestones.md#mil-sys-04)→[MIL-SYS-05](../../documents/scope-and-milestones.md#mil-sys-05)更新と本番公開後の利用           | 実装済み機能のみ利用可能. 全画面で開発版と分かり, 本番後も継続利用可能 |
+
+## 画面遷移
+
+- <a id="nav-sys-01"></a>NAV-SYS-01: 各Appの直接URLから認証へ進み, 許可された元画面に復帰する. 外部の戻り先URLを拒否する.
+- <a id="nav-sys-02"></a>NAV-SYS-02: URLやポータルの対象会員IDを改ざんしても他会員の操作を許可しない.
+- <a id="nav-sys-03"></a>NAV-SYS-03: ポータルを経由しなくてもAppを利用でき, ポータルへ戻れる. 大会2App間もそれぞれ認可する.
+
+## 開発版・本番版の同時利用
+
+[環境仕様](../../documents/development-environment.md)に基づく追加ケース. CIでは隔離した2環境で自動化し, Vercel・LINEの実機確認は運用者の設定後に行う.
+
+| ID | 種類 | ケース | 期待結果 |
+| --- | --- | --- | --- |
+| <a id="ete-env-01"></a>ETE-ENV-01 | E2E・実機 | 本番公開後に開発版を更新 | 両方の固定URLからログイン・ポータルを利用でき, 環境・表示版・SHAを識別可能. 開発版更新で本番の版とデータが変わらない |
+| <a id="ete-env-02"></a>ETE-ENV-02 | E2E・実機 | developの固定入口とLINE認証復帰 | デプロイ更新後も登録したコールバックで同じ環境に復帰. 未指定検証者を拒否し, 別環境のCookieで業務操作できない |

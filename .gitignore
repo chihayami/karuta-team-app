@@ -1,0 +1,47 @@
+# Credentials and local identity
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.ppk
+credentials.json
+service-account*.json
+id_rsa
+id_ed25519
+id_ecdsa
+.aws/
+.netrc
+secrets.yml
+secrets.yaml
+# Workspace-specific container settings and local caches
+/.devcontainer/
+.vercel/
+.clasp.json
+.clasprc.json
+
+# Generated files and caches
+node_modules/
+vendor/
+__pycache__/
+dist/
+build/
+out/
+target/
+*.pyc
+*.class
+*.o
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+*.orig
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~

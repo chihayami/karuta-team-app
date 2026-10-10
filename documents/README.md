@@ -1,0 +1,34 @@
+# プロジェクト仕様
+
+認証, ポータル, 名簿管理, 練習管理を独立したミニアプリとして構成する. 大会参加希望と大会班作業は後続リリースの別Appとする. 各Appが所有テーブル・仕様・テストを管理し, App間は公開APIで連携する.
+
+IDと文書の正本は[仕様書の管理規則](specification-conventions.md), 以前の番号は[旧新対応](id-migration.md)を参照する.
+
+## 全体仕様
+
+| 文書 | 内容 |
+| --- | --- |
+| [全体設計](architecture.md) | App境界, DB管理, 依存, 画面遷移 |
+| [スコープと工程](scope-and-milestones.md) | 対象範囲とマイルストーン |
+| [初回リリース](initial-release.md) | 要件と受入条件 |
+| [環境仕様](development-environment.md) | 開発版・本番版の分離, GitとVercelの版管理・更新・切戻し |
+| [画面一覧](screens-and-flows.md) | 画面と所有App |
+| [権限](access-control.md) | 共通の権限と利用範囲 |
+| [DB設計](data-design.md) | global/local分類, 管理者, データ辞書 |
+| [保存期限](data-retention.md) | データ保持, バックアップ, 復元 |
+| [公開契約](../contracts/README.md) | 各Appの公開API・DTO・認可・連携手順 |
+| [実装・検証計画](implementation-plan.md) | 工程, 検証, 移行 |
+| [文書整合性レビュー](documentation-review.md) | 重複の整理結果と未定義事項 |
+| [設計判断](open-questions.md) | 実装前に確定する業務条件 |
+| [実装着手条件](specification-review.md) | 技術実証と受入判定 |
+
+## App別仕様
+
+- [認証・アクセス管理](../app/auth/README.md)
+- [ポータル](../app/portal/README.md)
+- [名簿管理](../app/roster/README.md)
+- [練習管理](../app/practice/README.md)
+- [大会参加希望](../app/tournament-entry/README.md)
+- [大会班](../app/tournament-operations/README.md)
+
+業務仕様の未確定部分は「案」または「未決」と明記する. 過去の議論はhistory配下の記録とし, 現行仕様の根拠は本文に記載する. 新機能には自動テストを用意し, 既存の期待結果を変更する場合は実装前にレビューする.
