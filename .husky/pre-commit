@@ -1,0 +1,4 @@
+set -eu
+python3 scripts/security-review.py --preflight
+./node_modules/.bin/lint-staged --no-stash --no-revert --no-hide-partially-staged
+python3 scripts/security-review.py

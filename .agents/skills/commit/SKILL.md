@@ -1,6 +1,6 @@
 ---
 name: commit
-description: 'Generate a Japanese commit message with Conventional Commits prefix and create one or more atomic commits. Use ONLY when the user explicitly invokes /commit. Flow: git status → confirm with user via AskUserQuestion → filter sensitive/junk files → git add specific files → git commit (NO Claude footer) → output PR-format summary.'
+description: "Generate a Japanese commit message with Conventional Commits prefix and create one or more atomic commits. Use ONLY when the user explicitly invokes /commit. Flow: git status → confirm with user via AskUserQuestion → filter sensitive/junk files → git add specific files → git commit (NO Claude footer) → output PR-format summary."
 ---
 
 # /commit スキル
@@ -34,19 +34,19 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
 
 **(a) prefix判定** — 各変更ファイル群に対して以下から選ぶ：
 
-| prefix | 意味 |
-|---|---|
-| `feat` | 新機能の追加 |
-| `fix` | バグ修正 |
-| `docs` | ドキュメントのみの変更 |
-| `style` | コードの意味に影響しない変更（空白・フォーマット等） |
-| `refactor` | バグ修正でも機能追加でもないコード変更 |
-| `test` | テストの追加・修正 |
-| `chore` | ビルド補助ツール・雑務（`build` 以外） |
-| `perf` | パフォーマンス改善 |
-| `ci` | CI設定の変更 |
-| `build` | ビルドシステム・外部依存の変更 |
-| `revert` | 以前のコミットの取り消し |
+| prefix     | 意味                                                 |
+| ---------- | ---------------------------------------------------- |
+| `feat`     | 新機能の追加                                         |
+| `fix`      | バグ修正                                             |
+| `docs`     | ドキュメントのみの変更                               |
+| `style`    | コードの意味に影響しない変更（空白・フォーマット等） |
+| `refactor` | バグ修正でも機能追加でもないコード変更               |
+| `test`     | テストの追加・修正                                   |
+| `chore`    | ビルド補助ツール・雑務（`build` 以外）               |
+| `perf`     | パフォーマンス改善                                   |
+| `ci`       | CI設定の変更                                         |
+| `build`    | ビルドシステム・外部依存の変更                       |
+| `revert`   | 以前のコミットの取り消し                             |
 
 **(b) 論理的まとまり判定** — 内容（prefixが変わるか）+ ファイルパスの両方を見て、複数のスコープに分かれるかを判定。
 
@@ -55,6 +55,7 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
 **単一スコープの場合：**
 
 `AskUserQuestion` で1問：
+
 - question: 「このコミットメッセージで作成しますか？」
 - header: 「コミット確認」
 - options:
@@ -67,6 +68,7 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
 **複数prefix混在の場合：**
 
 `AskUserQuestion` で1問：
+
 - question: 「複数のスコープが混在しています。どうしますか？」
 - header: 「分割確認」
 - options:
@@ -75,6 +77,7 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
   - 「キャンセル」 — 中止
 
 分割案は AskUserQuestion を出す前にチャット本文に明示：
+
 ```
 コミット1: feat: ○○機能を追加
   - src/feature.ts
@@ -88,6 +91,7 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
 `git add` 対象から以下を**自動除外**：
 
 **クレデンシャル系（絶対除外）**
+
 - `.env`, `.env.*`
 - `*.pem`, `*.key`, `*.p12`, `*.pfx`, `*.ppk`
 - `credentials.json`, `service-account*.json`
@@ -96,6 +100,7 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
 - `secrets.yml`, `secrets.yaml`
 
 **開発環境の副産物**
+
 - `.DS_Store`, `Thumbs.db`, `desktop.ini`
 - `*.swp`, `*.swo`, `*~`
 - `node_modules/`, `vendor/`, `__pycache__/`
@@ -105,6 +110,7 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
 - `tmp/`, `temp/`, `*.tmp`, `*.bak`, `*.orig`
 
 **除外したファイルがあれば**、コミット実行前にチャットに明示：
+
 ```
 以下は自動除外しました（コミットには含めません）：
 - .DS_Store
@@ -113,9 +119,14 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
 
 ### Step 5: コミット実行
 
+pre-commit hookがステージ済みのsecurity-review skill全文を読み込み, 別のCodex実行で必須レビューを行う. この処理をAIの任意のskill選択で代替しない. 初回は `npm run prepare` でhookを有効化する. `HUSKY=0`, `--no-verify`, hook設定の変更によって回避しない.
+
+hookは整形後のステージ済み内容をレビューする. skill欠落, 要修正の指摘, 未完了・実行失敗, レビュー中の対象変更ではcommitを停止する. 失敗時は理由を報告し, 指摘修正や環境復旧後に再実行する. 詳細は[必須レビューの運用](../../../documents/security-development.md#commit前の必須レビュー)を参照する.
+
 `git add <個別ファイル名>` を使い、`git commit -m "..."` で作成。
 
 **コミットメッセージ形式：**
+
 - `<prefix>: <日本語サマリ>` の **1行のみ**
 - 本文・フッター・Co-Authored-By など一切付けない
 
@@ -127,31 +138,38 @@ description: 'Generate a Japanese commit message with Conventional Commits prefi
 
 ```markdown
 ## 概要
+
 <このPRで何をやったか・なぜやったか 2-3文>
 
 ## 変更内容
+
 - `path/to/file.ts` — 何をどう変えた
 - `path/to/other.md` — 何をどう変えた
 
 ## 備考
+
 <レビュアーが知っておくべきこと、未対応事項。なければセクション省略>
 ```
 
 **条件付きで以下を追加（該当時のみセクション追加、なければ省略）：**
 
 - **関連Issue**：コミットメッセージや diff コメントに `#123` などの参照があれば
+
   ```markdown
   ## 関連
+
   - Closes #123
   ```
 
 - **破壊的変更**：API・公開インターフェイスの非互換変更を検知したら
   ```markdown
   ## 破壊的変更
+
   - <何が変わったか・移行方法>
   ```
 
 **変更内容の列挙ルール：**
+
 - 主要ファイルのみ列挙（大量にある場合はディレクトリ単位で要約）
 - 自動除外したファイルは含めない
 
