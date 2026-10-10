@@ -7,7 +7,9 @@
   "scripts": {
     "format:md": "prettier --write \"**/*.md\"",
     "check:md": "prettier --check \"**/*.md\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "security:review": "python3 scripts/security-review.py",
+    "test:tooling": "python3 -m unittest discover -s tests/tooling -v"
   },
   "devDependencies": {
     "husky": "^9.1.7",
