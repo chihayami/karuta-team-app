@@ -6,35 +6,35 @@ Supabaseの共通アカウントで管理する. 開発・本番は環境別プ�
 
 本節をテーブル分類・所有者の正本とする. 初回のデータ辞書に記載されたテーブルを列挙する. 1行は1テーブルであり, 保持規則は[保存期限](data-retention.md)に定義する. 同一テーブルの行・列ごとに期限が異なる場合も, テーブルの区分・所有者は変わらない. 列定義は所有Appのデータ辞書を参照する.
 
-| ID | 区分 | テーブル | 管理App | データ辞書 | 保持規則 |
-| --- | --- | --- | --- | --- | --- |
-| <a id="tbl-aut-01"></a>TBL-AUT-01 | global | global.accounts | 認証 | [認証](../app/auth/docs/data-design.md#globalaccounts) | [RET-AUT-01](data-retention.md#ret-aut-01) |
-| <a id="tbl-aut-02"></a>TBL-AUT-02 | global | global.account_roles | 認証 | [認証](../app/auth/docs/data-design.md#globalaccount_roles) | [RET-AUT-03](data-retention.md#ret-aut-03) |
-| <a id="tbl-aut-03"></a>TBL-AUT-03 | global | global.member_links | 認証 | [認証](../app/auth/docs/data-design.md#globalmember_links) | [RET-AUT-04](data-retention.md#ret-aut-04), [RET-AUT-05](data-retention.md#ret-aut-05) |
-| <a id="tbl-rst-01"></a>TBL-RST-01 | global | global.members | 名簿 | [名簿](../app/roster/docs/data-design.md#globalmembers) | [RET-RST-01](data-retention.md#ret-rst-01) |
-| <a id="tbl-aut-04"></a>TBL-AUT-04 | local | auth_local.account_identities | 認証 | [認証](../app/auth/docs/data-design.md#auth_localaccount_identities) | [RET-AUT-02](data-retention.md#ret-aut-02) |
-| <a id="tbl-aut-05"></a>TBL-AUT-05 | local | auth_local.auth_sessions | 認証 | [認証](../app/auth/docs/data-design.md#auth_localauth_sessions) | [RET-AUT-06](data-retention.md#ret-aut-06) |
-| <a id="tbl-aut-06"></a>TBL-AUT-06 | local | auth_local.development_testers | 認証 | [認証](../app/auth/docs/data-design.md#auth_localdevelopment_testers) | [RET-AUT-07](data-retention.md#ret-aut-07) |
-| <a id="tbl-aut-07"></a>TBL-AUT-07 | local | auth_local.audit_events | 認証 | [運用列定義](operational-data.md) | [RET-AUT-08](data-retention.md#ret-aut-08), [RET-AUT-09](data-retention.md#ret-aut-09) |
-| <a id="tbl-aut-08"></a>TBL-AUT-08 | local | auth_local.operation_runs | 認証 | [運用列定義](operational-data.md) | [RET-OPS-01](data-retention.md#ret-ops-01) |
-| <a id="tbl-rst-02"></a>TBL-RST-02 | local | roster_local.grade_history | 名簿 | [名簿](../app/roster/docs/data-design.md#roster_localgrade_history) | [RET-RST-02](data-retention.md#ret-rst-02) |
-| <a id="tbl-rst-03"></a>TBL-RST-03 | local | roster_local.audit_events | 名簿 | [運用列定義](operational-data.md) | [RET-RST-03](data-retention.md#ret-rst-03) |
-| <a id="tbl-rst-04"></a>TBL-RST-04 | local | roster_local.operation_runs | 名簿 | [運用列定義](operational-data.md) | [RET-OPS-01](data-retention.md#ret-ops-01) |
-| <a id="tbl-prc-01"></a>TBL-PRC-01 | local | practice_local.venues | 練習 | [練習](../app/practice/docs/data-design.md#practice_localvenues) | [RET-PRC-01](data-retention.md#ret-prc-01) |
-| <a id="tbl-prc-02"></a>TBL-PRC-02 | local | practice_local.practice_sessions | 練習 | [練習](../app/practice/docs/data-design.md#practice_localpractice_sessions) | [RET-PRC-02](data-retention.md#ret-prc-02), [RET-PRC-03](data-retention.md#ret-prc-03) |
-| <a id="tbl-prc-03"></a>TBL-PRC-03 | local | practice_local.attendances | 練習 | [練習](../app/practice/docs/data-design.md#practice_localattendances) | [RET-PRC-04](data-retention.md#ret-prc-04) |
-| <a id="tbl-prc-04"></a>TBL-PRC-04 | local | practice_local.audit_events | 練習 | [運用列定義](operational-data.md) | [RET-PRC-05](data-retention.md#ret-prc-05), [RET-PRC-06](data-retention.md#ret-prc-06) |
-| <a id="tbl-prc-05"></a>TBL-PRC-05 | local | practice_local.operation_runs | 練習 | [運用列定義](operational-data.md) | [RET-OPS-01](data-retention.md#ret-ops-01) |
+| ID                                | 区分   | テーブル                         | 管理App | データ辞書                                                                  | 保持規則                                                                               |
+| --------------------------------- | ------ | -------------------------------- | ------- | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| <a id="tbl-aut-01"></a>TBL-AUT-01 | global | global.accounts                  | 認証    | [認証](../app/auth/docs/data-design.md#globalaccounts)                      | [RET-AUT-01](data-retention.md#ret-aut-01)                                             |
+| <a id="tbl-aut-02"></a>TBL-AUT-02 | global | global.account_roles             | 認証    | [認証](../app/auth/docs/data-design.md#globalaccount_roles)                 | [RET-AUT-03](data-retention.md#ret-aut-03)                                             |
+| <a id="tbl-aut-03"></a>TBL-AUT-03 | global | global.member_links              | 認証    | [認証](../app/auth/docs/data-design.md#globalmember_links)                  | [RET-AUT-04](data-retention.md#ret-aut-04), [RET-AUT-05](data-retention.md#ret-aut-05) |
+| <a id="tbl-rst-01"></a>TBL-RST-01 | global | global.members                   | 名簿    | [名簿](../app/roster/docs/data-design.md#globalmembers)                     | [RET-RST-01](data-retention.md#ret-rst-01)                                             |
+| <a id="tbl-aut-04"></a>TBL-AUT-04 | local  | auth_local.account_identities    | 認証    | [認証](../app/auth/docs/data-design.md#auth_localaccount_identities)        | [RET-AUT-02](data-retention.md#ret-aut-02)                                             |
+| <a id="tbl-aut-05"></a>TBL-AUT-05 | local  | auth_local.auth_sessions         | 認証    | [認証](../app/auth/docs/data-design.md#auth_localauth_sessions)             | [RET-AUT-06](data-retention.md#ret-aut-06)                                             |
+| <a id="tbl-aut-06"></a>TBL-AUT-06 | local  | auth_local.development_testers   | 認証    | [認証](../app/auth/docs/data-design.md#auth_localdevelopment_testers)       | [RET-AUT-07](data-retention.md#ret-aut-07)                                             |
+| <a id="tbl-aut-07"></a>TBL-AUT-07 | local  | auth_local.audit_events          | 認証    | [運用列定義](operational-data.md)                                           | [RET-AUT-08](data-retention.md#ret-aut-08), [RET-AUT-09](data-retention.md#ret-aut-09) |
+| <a id="tbl-aut-08"></a>TBL-AUT-08 | local  | auth_local.operation_runs        | 認証    | [運用列定義](operational-data.md)                                           | [RET-OPS-01](data-retention.md#ret-ops-01)                                             |
+| <a id="tbl-rst-02"></a>TBL-RST-02 | local  | roster_local.grade_history       | 名簿    | [名簿](../app/roster/docs/data-design.md#roster_localgrade_history)         | [RET-RST-02](data-retention.md#ret-rst-02)                                             |
+| <a id="tbl-rst-03"></a>TBL-RST-03 | local  | roster_local.audit_events        | 名簿    | [運用列定義](operational-data.md)                                           | [RET-RST-03](data-retention.md#ret-rst-03)                                             |
+| <a id="tbl-rst-04"></a>TBL-RST-04 | local  | roster_local.operation_runs      | 名簿    | [運用列定義](operational-data.md)                                           | [RET-OPS-01](data-retention.md#ret-ops-01)                                             |
+| <a id="tbl-prc-01"></a>TBL-PRC-01 | local  | practice_local.venues            | 練習    | [練習](../app/practice/docs/data-design.md#practice_localvenues)            | [RET-PRC-01](data-retention.md#ret-prc-01)                                             |
+| <a id="tbl-prc-02"></a>TBL-PRC-02 | local  | practice_local.practice_sessions | 練習    | [練習](../app/practice/docs/data-design.md#practice_localpractice_sessions) | [RET-PRC-02](data-retention.md#ret-prc-02), [RET-PRC-03](data-retention.md#ret-prc-03) |
+| <a id="tbl-prc-03"></a>TBL-PRC-03 | local  | practice_local.attendances       | 練習    | [練習](../app/practice/docs/data-design.md#practice_localattendances)       | [RET-PRC-04](data-retention.md#ret-prc-04)                                             |
+| <a id="tbl-prc-04"></a>TBL-PRC-04 | local  | practice_local.audit_events      | 練習    | [運用列定義](operational-data.md)                                           | [RET-PRC-05](data-retention.md#ret-prc-05), [RET-PRC-06](data-retention.md#ret-prc-06) |
+| <a id="tbl-prc-05"></a>TBL-PRC-05 | local  | practice_local.operation_runs    | 練習    | [運用列定義](operational-data.md)                                           | [RET-OPS-01](data-retention.md#ret-ops-01)                                             |
 
 localから他Appに結果を提供する場合も公開APIを用いる. 級履歴を用いた指定日級の照会は名簿APIで提供し, grade_historyをglobalにしない. globalには各Appの作業用データや汎用的なJSON置場を設けない.
 
 ## 後続データとテーブルを持たないApp
 
-| 管理App | 区分・設計状況 | データ辞書 |
-| --- | --- | --- |
-| ポータル | 初回は業務・監査・ジョブ実行テーブルなし. [DEC-OPS-05](open-questions.md#dec-ops-05)で確定 | [ポータル](../app/portal/docs/specification.md) |
-| 大会参加希望 | local. 参加希望データのテーブル名・列・保持期限は後続設計 | [大会参加希望](../app/tournament-entry/docs/data-design.md) |
-| 大会班 | local. 大会・受付・確定名簿・戦績・作業データのテーブル名・列・保持期限は後続設計 | [大会班](../app/tournament-operations/docs/data-design.md) |
+| 管理App      | 区分・設計状況                                                                             | データ辞書                                                  |
+| ------------ | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------- |
+| ポータル     | 初回は業務・監査・ジョブ実行テーブルなし. [DEC-OPS-05](open-questions.md#dec-ops-05)で確定 | [ポータル](../app/portal/docs/specification.md)             |
+| 大会参加希望 | local. 参加希望データのテーブル名・列・保持期限は後続設計                                  | [大会参加希望](../app/tournament-entry/docs/data-design.md) |
+| 大会班       | local. 大会・受付・確定名簿・戦績・作業データのテーブル名・列・保持期限は後続設計          | [大会班](../app/tournament-operations/docs/data-design.md)  |
 
 上表の後続データはテーブル定義ではない. [DEC-SYS-02](open-questions.md#dec-sys-02)は後続Appの実装開始時に具体化して一覧へ追加し, 初回リリースの条件には含めない. ポータルは所有Appの公開APIを利用する. 運用テーブルは全Appに一律で作らず, 本一覧にある業務更新・ジョブ実行を担う所有Appだけに置く.
 招待コード方式のinvitationsと独立集計テーブルpractice_summariesは作成しない. 確定集計はpractice_local.practice_sessionsの列に保持する.

@@ -1,22 +1,46 @@
 {
-  "name": "miniapp-specifications",
+  "name": "member-miniapps",
   "private": true,
+  "type": "module",
   "engines": {
-    "node": ">=26 <27"
+    "node": "24.x"
   },
   "scripts": {
     "format:md": "prettier --write \"**/*.md\"",
     "check:md": "prettier --check \"**/*.md\"",
     "prepare": "husky",
     "security:review": "python3 scripts/security-review.py",
-    "test:tooling": "python3 -m unittest discover -s tests/tooling -v"
+    "test:tooling": "python3 -m unittest discover -s tests/tooling -v",
+    "dev": "next dev web",
+    "start": "next start web",
+    "build": "next build web",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint web tests/integration vitest.config.ts eslint.config.mjs",
+    "test": "vitest run",
+    "test:smoke": "node tests/integration/web-runtime-check.mjs"
   },
   "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "10.12.0",
+    "eslint-plugin-react-hooks": "7.1.1",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "prettier": "^3.9.9"
+    "prettier": "^3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.1",
+    "vitest": "5.0.3"
   },
   "lint-staged": {
     "**/*.md": "prettier --write"
-  }
+  },
+  "dependencies": {
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "0.0.1"
+  },
+  "version": "0.1.0"
 }

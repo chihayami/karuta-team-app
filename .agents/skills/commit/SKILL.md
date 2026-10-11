@@ -14,7 +14,6 @@ description: "Generate a Japanese commit message with Conventional Commits prefi
 - **`--no-verify` は使わない**（フックが失敗したら原因を直す）
 - **`git commit --amend` は使わない**（常に新規コミット）
 - **失敗時に `git reset` などで自動ロールバックしない** — 状況を報告してユーザに判断を仰ぐ
-- **ステージングされていない変更（unstaged / untracked）はコミット対象に含めない** — ユーザに質問せず自動的に除外する。コミット対象は `git diff --cached` で確認できるステージング済み変更のみ
 
 ## 実行フロー
 
@@ -23,10 +22,11 @@ description: "Generate a Japanese commit message with Conventional Commits prefi
 並列で以下を実行：
 
 - `git status`（`-uall` フラグは使わない）— ステージング状態の確認用
-- `git diff --cached`（**staged のみ**。unstaged は対象外なので見ない）
+- `git diff --cached`
 - `git log --oneline -10`（リポジトリのコミットスタイル参考用）
 
-**ステージング済みの変更が1つもない場合**は「ステージング済みの変更がありません。`git add` でコミット対象をステージングしてください」と伝えて終了する。unstaged/untracked のファイルが残っていても**ユーザに質問しない**（自動的にコミット対象外として扱う）。
+ステージングされている変更がある場合は、ステージ済みの変更のみを対象とする。
+ステージングされている変更がない場合には, 変更済みのすべてのファイルを対象とする.
 
 ### Step 2: 変更内容を分析
 

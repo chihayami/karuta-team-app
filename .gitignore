@@ -27,6 +27,10 @@ secrets.yaml
 
 # Generated files and caches
 node_modules/
+.next/
+/web/next-env.d.ts
+*.tsbuildinfo
+coverage/
 vendor/
 __pycache__/
 dist/

@@ -2,7 +2,6 @@
 
 業務要件と具体的な設計案を記載する. 未確定の判断は「案」または「未決」と明示する.
 
-
 ## 権限の更新
 
 - 通常ロールは `practice.manage`, `attendance.manage`, `roster.write`, `promotion.register`, `access.manage` 等の名前付き権限の集合としてコード定義する.

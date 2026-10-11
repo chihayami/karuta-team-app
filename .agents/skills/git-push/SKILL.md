@@ -1,6 +1,6 @@
 ---
 name: git-push
-description: 'Stage selected changes, create commits through the existing /commit skill, and push them after explicit user confirmation. Use when the user asks to commit and push or invokes /git-push.'
+description: "Stage selected changes, create commits through the existing /commit skill, and push them after explicit user confirmation. Use when the user asks to commit and push or invokes /git-push."
 ---
 
 # /git-push スキル

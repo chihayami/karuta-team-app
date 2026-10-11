@@ -1,0 +1,13 @@
+# Fictional local settings. Never deploy these values or add secrets to this file.
+APP_ENVIRONMENT=development
+APP_DEPLOYMENT_TARGET=local
+APP_ORIGIN=http://localhost:3000
+# Replace with the full source commit SHA before checking a build.
+APP_GIT_SHA=0000000000000000000000000000000000000000
+APP_CONFIG_REVISION=local-example-1
+APP_SUPABASE_URL=https://aaaaaaaaaaaaaaaaaaaa.supabase.co
+APP_LINE_CHANNEL_ID=1000000001
+APP_LIFF_ID=1000000001-devExample
+APP_GAS_DEPLOYMENT_ID=development-example
+# Operator-maintained environment bindings contain identifiers, never credentials.
+APP_ENVIRONMENT_BINDINGS='{"development":{"origin":"https://development.example.invalid","supabaseProjectRef":"aaaaaaaaaaaaaaaaaaaa","lineChannelId":"1000000001","liffId":"1000000001-devExample","gasDeploymentId":"development-example"},"production":{"origin":"https://production.example.invalid","supabaseProjectRef":"bbbbbbbbbbbbbbbbbbbb","lineChannelId":"1000000002","liffId":"1000000002-prodExample","gasDeploymentId":"production-example"}}'
