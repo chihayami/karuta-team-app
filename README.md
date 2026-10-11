@@ -5,6 +5,7 @@
 - [仕様の入口](documents/README.md)
 - [各Appの公開APIと連携](contracts/README.md)
 - [開発版・本番版とバージョン管理](documents/development-environment.md)
+- [WSLのSSHエージェントをコンテナで利用する](documents/devcontainer-ssh.md)
 - [仕様ID規則](documents/specification-conventions.md)
 - [ID移行対応表](documents/id-migration.md)
 - [開発ルール](AGENTS.md)

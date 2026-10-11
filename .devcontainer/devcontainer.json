@@ -1,0 +1,15 @@
+{
+  "name": "Codex Sandbox",
+  "dockerComposeFile": "compose.yaml",
+  "service": "codex-sandbox",
+  "workspaceFolder": "/workspace",
+  "postCreateCommand": "npm install",
+  "waitFor": "postCreateCommand",
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": ["openai.chatgpt"]
+    }
+  },
+  "shutdownAction": "stopCompose"
+}
