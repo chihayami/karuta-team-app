@@ -216,7 +216,15 @@ export function readAppConfiguration(
     "package.json.version",
     SOURCE_VERSION,
   );
-  const gitSha = matching(input.APP_GIT_SHA, "APP_GIT_SHA", GIT_SHA);
+  const usesVercelGitSha = input.APP_GIT_SHA === undefined;
+  const gitShaSource = usesVercelGitSha
+    ? "VERCEL_GIT_COMMIT_SHA"
+    : "APP_GIT_SHA";
+  const gitSha = matching(
+    usesVercelGitSha ? input.VERCEL_GIT_COMMIT_SHA : input.APP_GIT_SHA,
+    gitShaSource,
+    GIT_SHA,
+  );
   if (
     target !== "local" &&
     (new URL(appOrigin).hostname.endsWith(".invalid") || /^0+$/.test(gitSha))

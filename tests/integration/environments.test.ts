@@ -150,6 +150,36 @@ describe("TST-ENV-02 / TST-SYS-15: configuration boundary", () => {
     ).toThrow(ConfigurationError);
   });
 
+  it("uses Vercel's commit SHA when APP_GIT_SHA is not configured", () => {
+    const input = environmentFixture();
+    delete input.APP_GIT_SHA;
+    input.VERCEL_GIT_COMMIT_SHA = "cdef1234".padEnd(40, "0");
+
+    expect(readAppConfiguration(input, "0.1.0").release.gitSha).toBe(
+      input.VERCEL_GIT_COMMIT_SHA,
+    );
+  });
+
+  it("still requires a valid Vercel commit SHA when APP_GIT_SHA is absent", () => {
+    const input = environmentFixture();
+    delete input.APP_GIT_SHA;
+    input.VERCEL_GIT_COMMIT_SHA = "invalid";
+
+    expect(() => readAppConfiguration(input, "0.1.0")).toThrow(
+      ConfigurationError,
+    );
+  });
+
+  it("rejects an invalid APP_GIT_SHA instead of falling back to Vercel", () => {
+    const input = environmentFixture();
+    input.APP_GIT_SHA = "";
+    input.VERCEL_GIT_COMMIT_SHA = "cdef1234".padEnd(40, "0");
+
+    expect(() => readAppConfiguration(input, "0.1.0")).toThrow(
+      ConfigurationError,
+    );
+  });
+
   it("does not classify the initial Vercel Production deployment as development by branch name", () => {
     const input = {
       ...environmentFixture(),

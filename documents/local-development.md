@@ -35,7 +35,7 @@ Next.jsの `NODE_ENV=production` はビルド方式を表すため, 本システ
 | `APP_LINE_CHANNEL_ID`      | 対象環境のLINEチャネルID                                                                                                   |
 | `APP_LIFF_ID`              | 対象環境のLIFF ID                                                                                                          |
 | `APP_GAS_DEPLOYMENT_ID`    | 対象環境のGASデプロイID                                                                                                    |
-| `APP_GIT_SHA`              | 40桁の小文字16進のソースSHA. VercelのソースSHAがある場合は一致必須                                                         |
+| `APP_GIT_SHA`              | ローカル用の40桁小文字16進SHA. 未指定時は `VERCEL_GIT_COMMIT_SHA` を使用し, 両方ある場合は一致必須                         |
 | `APP_CONFIG_REVISION`      | 非秘密の設定改訂識別子. 設定変更時に更新し再ビルドする                                                                     |
 
 期待接続先は運用者が各サービスの設定と照合して管理する. 開発・本番の各識別子を共用できない. 実際の値を取り違えたまま期待値にも同じ値を設定する誤りを, 文字列比較だけで検出できるとは扱わない.
