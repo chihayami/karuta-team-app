@@ -6,21 +6,24 @@ IDと文書の正本は[仕様書の管理規則](specification-conventions.md),
 
 ## 全体仕様
 
-| 文書                                          | 内容                                                    |
-| --------------------------------------------- | ------------------------------------------------------- |
-| [全体設計](architecture.md)                   | App境界, DB管理, 依存, 画面遷移                         |
-| [スコープと工程](scope-and-milestones.md)     | 対象範囲とマイルストーン                                |
-| [初回リリース](initial-release.md)            | 要件と受入条件                                          |
-| [環境仕様](development-environment.md)        | 開発版・本番版の分離, GitとVercelの版管理・更新・切戻し |
-| [画面一覧](screens-and-flows.md)              | 画面と所有App                                           |
-| [権限](access-control.md)                     | 共通の権限と利用範囲                                    |
-| [DB設計](data-design.md)                      | global/local分類, 管理者, データ辞書                    |
-| [保存期限](data-retention.md)                 | データ保持, バックアップ, 復元                          |
-| [公開契約](../contracts/README.md)            | 各Appの公開API・DTO・認可・連携手順                     |
-| [実装・検証計画](implementation-plan.md)      | 工程, 検証, 移行                                        |
-| [文書整合性レビュー](documentation-review.md) | 重複の整理結果と未定義事項                              |
-| [設計判断](open-questions.md)                 | 実装前に確定する業務条件                                |
-| [実装着手条件](specification-review.md)       | 技術実証と受入判定                                      |
+| 文書                                                           | 内容                                                    |
+| -------------------------------------------------------------- | ------------------------------------------------------- |
+| [全体設計](architecture.md)                                    | App境界, DB管理, 依存, 画面遷移                         |
+| [スコープと工程](scope-and-milestones.md)                      | 対象範囲とマイルストーン                                |
+| [初回リリース](initial-release.md)                             | 要件と受入条件                                          |
+| [環境仕様](development-environment.md)                         | 開発版・本番版の分離, GitとVercelの版管理・更新・切戻し |
+| [画面一覧](screens-and-flows.md)                               | 画面と所有App                                           |
+| [権限](access-control.md)                                      | 共通の権限と利用範囲                                    |
+| [DB設計](data-design.md)                                       | global/local分類, 管理者, データ辞書                    |
+| [保存期限](data-retention.md)                                  | データ保持, バックアップ, 復元                          |
+| [公開契約](../contracts/README.md)                             | 各Appの公開API・DTO・認可・連携手順                     |
+| [実装・検証計画](implementation-plan.md)                       | 工程, 検証, 移行                                        |
+| [文書整合性レビュー](documentation-review.md)                  | 重複の整理結果と未定義事項                              |
+| [設計判断](open-questions.md)                                  | 実装前に確定する業務条件                                |
+| [実装着手条件](specification-review.md)                        | 技術実証と受入判定                                      |
+| [開発用外部サービスの設定](development-services-setup.md)      | Supabase, GAS・Drive, Vercel, LINE/LIFFの準備と設定     |
+| [GAS保存先の入出力実証計画](gas-storage-probe-plan.md)         | 架空データの保存・読戻しと完了報告                      |
+| [保存期限と永久削除の実証計画](backup-retention-probe-plan.md) | 世代更新・永久削除と残る全DB実証の工程                  |
 
 ## 開発規約
 

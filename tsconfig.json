@@ -14,7 +14,8 @@
     "jsx": "react-jsx",
     "noUncheckedIndexedAccess": true,
     "allowJs": true,
-    "checkJs": true
+    "checkJs": true,
+    "types": ["node"]
   },
   "include": [
     "web/**/*.ts",
@@ -22,7 +23,9 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "vitest.config.ts",
-    "web/**/*.mjs"
+    "web/**/*.mjs",
+    "gas/backup/tests/**/*.ts",
+    "scripts/gas-check-upload.mjs"
   ],
   "exclude": ["node_modules"]
 }

@@ -77,3 +77,5 @@
 - `npm audit`: 指摘0件.
 - [security-review skill](../.agents/skills/security-review/SKILL.md)で今回のコードと設定例を確認した. 入力値を含めないエラー, 設定の明示的照合, サーバー専用モジュール, 公開表示への最小情報のみの受渡しを確認し, この範囲で要修正の指摘なし. 参照は[OWASP入力検証](https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html), [OWASPログ](https://cheatsheetseries.owasp.org/cheatsheets/Logging_Cheat_Sheet.html), [Next.jsのServer/Client境界](https://nextjs.org/docs/app/getting-started/server-and-client-components). 2026-10-10確認. commit hookによるレビューの実行記録とは区別する.
 - LINE実機, DB/RLS, 実Vercelの配信・分離, バックアップ・復元は未実施. これらの完了条件は後続実証で維持する.
+- 2026-10-11にGAS同期基盤を追加し, 運用者から設定完了の報告を受けた. 承認された[保存先の入出力実証計画](gas-storage-probe-plan.md)に従い, 架空データ3件の保存・読戻し用コードと自動テストを追加した. ローカル検査が成功し, 同期時の構文互換性を修正した後, Google側での期待された成功ログを運用者が確認した. 保存・読戻しの準備実証は完了. 次の[期限適用と永久削除の実証](backup-retention-probe-plan.md)をレビューする. 全DBのバックアップ・復元の完了とは区別する.
+- 同日に承認された[期限適用と永久削除の実証](backup-retention-probe-plan.md)の工程1を実装した. 新保存物の検証後に実証中に作成した旧ファイルだけを永久削除し, 15日経過した世代の削除も確認するコードとテストを追加した. 型チェック・lint・自動テスト288件・送信対象検査が成功した. Google側での反映・実行は運用者による確認待ち. 全DB保存・復元や失効の再適用は未完了.

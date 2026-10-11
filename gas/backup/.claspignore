@@ -1,0 +1,9 @@
+# Push only the reviewed GAS sources and manifest.
+**/**
+!appsscript.json
+!src/config.js
+!src/healthcheck.js
+!src/probe-format.js
+!src/storage-probe.js
+!src/probe-retention.js
+!src/retention-probe.js

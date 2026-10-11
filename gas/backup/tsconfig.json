@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["google-apps-script"],
+    "lib": ["es2022"],
+    "moduleDetection": "legacy",
+    "isolatedModules": false
+  },
+  "include": ["src/*.js"],
+  "exclude": ["tests"]
+}
